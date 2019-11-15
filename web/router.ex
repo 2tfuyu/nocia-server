@@ -13,14 +13,16 @@ defmodule NociaServer.Router do
     plug :accepts, ["json"]
   end
 
+
   scope "/", NociaServer do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", NociaServer do
-  #   pipe_through :api
-  # end
+  #Other scopes may use custom stacks.
+  scope "/api", NociaServer do
+    pipe_through :api
+    get "/push/:message", PageController, :push
+  end
 end
